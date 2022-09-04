@@ -6,6 +6,10 @@ type centerDivType = {
   variant: string;
 };
 
+type COOKIECONSENT = {
+  display: boolean;
+};
+
 const checkLuckyBirthday = (date: string, luckyNumber: number) => {
   let sum = 0;
   for (let i = 0; i < date.length; i++) {
@@ -24,6 +28,7 @@ const App = () => {
   const [date, setDate] = useState<string>("");
   const [luckyNumber, setLuckyNumber] = useState<number>(0);
   const [output, setOutput] = useState<string>("Welcome to Lucky Birthday!");
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -68,6 +73,18 @@ const App = () => {
         </Button>
       </form>
       <H1>{output}</H1>
+
+      <PrivacyNotice display={isVisible}>
+        <div>
+          <h2 style={{ fontSize: "4rem" }}>Privacy Notice</h2>
+          <p style={{ fontSize: "3rem" }}>
+            We do not store any sort of user data and cookies.
+          </p>
+        </div>
+        <PrivacyNoticeButton onClick={() => setIsVisible((prev) => !prev)}>
+          CLOSE
+        </PrivacyNoticeButton>
+      </PrivacyNotice>
     </>
   );
 };
@@ -87,4 +104,22 @@ const H1 = styled.h1`
 
 const Label = styled.label`
   font-size: 2.4rem;
+`;
+
+const PrivacyNotice = styled.div<COOKIECONSENT>`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: black;
+  color: white;
+  min-height: 8rem;
+  display: ${(props) => (props.display ? "flex" : "none")};
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+`;
+
+const PrivacyNoticeButton = styled(Button)`
+  background: white;
+  color: black;
 `;
