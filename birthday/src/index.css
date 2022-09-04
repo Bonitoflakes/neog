@@ -1,0 +1,43 @@
+:root {
+  --gray-primary: rgb(209 213 219);
+  --gray-variant-hover: rgb(243 244 246);
+  --blue-primary: rgb(56, 97, 251);
+  --blue-variant-hover: rgb(59 130 246);
+  --blue-variant-hover-dark: rgb(11, 64, 255);
+  --blue-variant-shadow: rgb(147, 197, 253);
+}
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+body {
+  background-color: lightblue;
+}
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+a {
+  text-decoration: none;
+}
+
+/* * Remove Arrows from inputs*/
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"] {
+  appearance: none;
+}
