@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { Container, Input, Button } from "../../UI_KIT";
+import { ButtonHTMLAttributes, FormEvent, useEffect, useState } from "react";
+import { Container, Input, Button } from "./UI_KIT";
 
 type centerDivType = {
   variant: string;
@@ -25,7 +25,7 @@ const App = () => {
   const [luckyNumber, setLuckyNumber] = useState<number>(0);
   const [output, setOutput] = useState<string>("Welcome to Lucky Birthday!");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (date === undefined) {
       return;
@@ -48,7 +48,7 @@ const App = () => {
             type="date"
             id="dateInput"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={(e: any) => setDate(e.target.value)}
           />
         </CenteredDiv>
 
@@ -59,11 +59,11 @@ const App = () => {
             type="number"
             id="luckyNumber"
             value={luckyNumber}
-            onChange={(e) => setLuckyNumber(Number(e.target.value))}
+            onChange={(e: any) => setLuckyNumber(Number(e.target.value))}
           />
         </CenteredDiv>
 
-        <Button type="submit" onClick={(e) => handleSubmit(e)}>
+        <Button type="submit" onClick={handleSubmit}>
           Check my luck!!
         </Button>
       </form>
