@@ -9,9 +9,11 @@ const footer = () => {
         justifyContent: "center",
         marginTop: "5rem",
         position: "absolute",
-        bottom: 0,
+        bottom: "10px",
         width: "100%",
         height: "2.5rem",
+        right: 0,
+        left: 0,
       }}
     >
       <h2 style={{ fontSize: "4rem" }}>Let`s connect.</h2>
