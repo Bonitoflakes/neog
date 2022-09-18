@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Footer from "./footer";
 import { Container, Input, Button } from "./UI_KIT";
 
 type centerDivType = {
@@ -85,6 +86,8 @@ const App = () => {
         <Button type="submit">Show</Button>
       </form>
       <H1>{output}</H1>
+
+      <Footer />
     </>
   );
 };

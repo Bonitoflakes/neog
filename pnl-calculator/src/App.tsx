@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Footer from "./footer";
 import { Container, Input, Button } from "./UI_KIT";
 
 const App = () => {
@@ -92,6 +93,7 @@ const App = () => {
             </div>
           )}
         </div>
+        <Footer/>
       </Container>
     </>
   );

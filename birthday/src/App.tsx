@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ButtonHTMLAttributes, FormEvent, useEffect, useState } from "react";
 import { Container, Input, Button } from "./UI_KIT";
+import Footer from "./footer";
 
 type centerDivType = {
   variant: string;
@@ -85,6 +86,8 @@ const App = () => {
           CLOSE
         </PrivacyNoticeButton>
       </PrivacyNotice>
+
+      <Footer/>
     </>
   );
 };

@@ -8,7 +8,7 @@ const questions = [
     options: ["30", "90", "120"],
   },
   {
-    question: "What is the hypotnuse of a triangle with sides 3 and 4?",
+    question: "What is the hypotenuse of a triangle with sides 3 and 4?",
     answer: "5",
     options: ["5", "6", "7"],
   },
@@ -30,12 +30,11 @@ const questions = [
 ];
 
 export function Quiz() {
-  const [score, setScore] = useState(0);
   const form = useRef<HTMLFormElement | null>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setScore(0);
+    let tempscore = 0;
     // @ts-ignore
     let data = new FormData(form.current);
     for (const [key, value] of data) {
@@ -43,11 +42,11 @@ export function Quiz() {
       for (const question of questions) {
         console.log(question.answer);
         if (question.answer === value) {
-          setScore((prev) => prev + 1);
+          tempscore++;
         }
       }
     }
-    alert("Your score is " + score);
+    alert("Your score is " + tempscore);
   };
 
   return (

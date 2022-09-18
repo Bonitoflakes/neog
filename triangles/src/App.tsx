@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Area from "./components/Area";
+import Footer from "./components/footer";
 import Hypotenuse from "./components/Hypotenuse";
 import IsTriangle from "./components/IsTriangle";
 import { Quiz } from "./components/Quiz";
@@ -36,9 +37,10 @@ function App() {
             ))}
           </div>
         </CenteredDiv>
-        <CenteredDiv style={{ marginTop: "5rem" }}>
+        <CenteredDiv style={{ margin: "5rem 0" }}>
           {component ? <div>{component} </div> : <h1>Click on any button to see the component</h1>}
         </CenteredDiv>
+        <Footer />
       </Container>
     </>
   );
