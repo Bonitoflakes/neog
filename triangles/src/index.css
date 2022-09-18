@@ -1,0 +1,33 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+
+  --gray-primary: rgb(209 213 219);
+  --gray-variant-hover: rgb(243 244 246);
+  --blue-primary: rgb(56, 97, 251);
+  --blue-variant-hover: rgb(59 130 246);
+  --blue-variant-hover-dark: rgb(11, 64, 255);
+  --blue-variant-shadow: rgb(147, 197, 253);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+}
+a {
+  text-decoration: none;
+}
