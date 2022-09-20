@@ -4,17 +4,15 @@ import Footer from "./footer";
 import { Container, Input, Button } from "./UI_KIT";
 
 const App = () => {
-  const [pnl, setPnl] = useState<undefined | number>(undefined);
-  const [pnlPercentage, setPnlPercentage] = useState<undefined | number>(
-    undefined
-  );
-  const [qty, setQty] = useState<undefined | number>(undefined);
-  const [cp, setCp] = useState<undefined | number>(undefined);
-  const [bp, setBp] = useState<undefined | number>(undefined);
+  const [pnl, setPnl] = useState<number>(0);
+  const [pnlPercentage, setPnlPercentage] = useState<number>(0);
+  const [qty, setQty] = useState<number>(0);
+  const [cp, setCp] = useState<number>(0);
+  const [bp, setBp] = useState<number>(0);
 
   const calculatePnl = (e: any) => {
     e.preventDefault();
-    if (qty && cp && bp) {
+    if (qty > 0 && cp > 0 && bp > 0) {
       setPnl(qty * cp - qty * bp);
       setPnlPercentage(((qty * cp - qty * bp) / (qty * bp)) * 100);
     }
@@ -40,8 +38,9 @@ const App = () => {
               required
               type="number"
               name="quantity"
+              min={1}
               placeholder="Enter the number of stocks"
-              value={qty}
+              value={qty || ""}
               onChange={(e) => setQty(Number(e.target.value))}
             />
 
@@ -50,9 +49,10 @@ const App = () => {
               required
               type="number"
               name="buyPrice"
+              min={0}
               placeholder="Enter the purchase price"
-              value={bp}
-              onChange={(e) => setBp(Number(e.target.value))}
+              value={bp || ""}
+              onChange={(e) => setBp(Number(e.target.valueAsNumber))}
             />
 
             <Label htmlFor="currentPrice">Current Price</Label>
@@ -60,15 +60,18 @@ const App = () => {
               required
               type="number"
               name="currentPrice"
+              min={0}
               placeholder="Enter the current price"
-              value={cp}
-              onChange={(e) => setCp(Number(e.target.value))}
+              value={cp || ""}
+              onChange={(e) => setCp(Number(e.target.valueAsNumber))}
             />
 
             <Button type="submit">Calculate</Button>
           </form>
 
-          {pnl && (
+          {pnl === 0 ? (
+            "No profits or losses yet"
+          ) : pnl > 0 ? (
             <div style={{ marginTop: "2rem" }}>
               <h2
                 style={{
@@ -81,7 +84,7 @@ const App = () => {
                 <span>
                   {pnl > 0 ? (
                     <span style={{ color: "green" }}>
-                      ${pnl}, {pnlPercentage?.toFixed(2)}%
+                      ${pnl}, ({pnlPercentage?.toFixed(2)}%)
                     </span>
                   ) : (
                     <span style={{ color: "red" }}>
@@ -91,9 +94,9 @@ const App = () => {
                 </span>
               </h2>
             </div>
-          )}
+          ) : null}
+          <Footer />
         </div>
-        <Footer/>
       </Container>
     </>
   );
