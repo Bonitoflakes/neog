@@ -21,9 +21,9 @@ const isPalindrome = (str: string): boolean => {
 const getAllDateFormats = (date: string) => {
   const dateInStr = date.split("-");
 
-  console.log(dateInStr); // array type
+  console.log(dateInStr); // array type [yyyy,mm,dd]
 
-  const ddmmyyyy = dateInStr.join("");
+  const ddmmyyyy = dateInStr.reverse().join("");
   const mmddyyyy = dateInStr[1] + dateInStr[2] + dateInStr[0];
   const yyyymmdd = dateInStr[2] + dateInStr[0] + dateInStr[1];
   const ddmmyy = dateInStr[0] + dateInStr[1] + dateInStr[2].slice(-2);
