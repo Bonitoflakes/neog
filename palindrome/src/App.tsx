@@ -14,13 +14,11 @@ const reversedString = (str: string) => {
 const isPalindrome = (str: string): boolean => {
   const reversed = reversedString(str);
   console.log(`{original,reversed} :`, str, reversed);
-
   return str === reversed;
 };
 
 const getAllDateFormats = (date: string) => {
   const dateInStr = date.split("-");
-
   console.log(dateInStr); // array type [yyyy,mm,dd]
 
   const ddmmyyyy = dateInStr.reverse().join("");
@@ -48,20 +46,58 @@ const checkPalindromeForAllDateFormats = (date: string) => {
   return flag;
 };
 
-const checkLeapYear = (year: number) => {
-  if (year % 400 === 0 || year % 100 !== 0 || year % 4 === 0) {
-    return true;
+// const checkLeapYear = (year: number) => {
+//   if (year % 400 === 0 || year % 100 !== 0 || year % 4 === 0) {
+//     return true;
+//   }
+//   return false;
+// };
+
+const _getNextDate = (date: string) => {
+  let userSelectedDate = new Date(date);
+  let nextDate = new Date(userSelectedDate.setDate(userSelectedDate.getDate() + 1));
+  // let nextDate2 = new Date(userSelectedDate.getTime() + 24 * 60 * 60 * 1000);
+
+  // let day = userSelectedDate.getDate(); // 1-31
+  // let month = nextDate.getMonth() + 1; // January is 0!
+  // let year = nextDate.getFullYear(); // 4 digit year
+  let obj = {
+    userSelectedDate,
+    nextDate,
+    // nextDate2,
+    // day,
+    // month,
+    // year,
+  };
+  console.table(obj);
+  // return `${year}-${month}-${day}`; // yyyy-m-d zero is ignored
+  return nextDate.toISOString().slice(0, 10);
+};
+
+const checkNextPalindromeDate = (date: string) => {
+  let counter = 0;
+  let flag = true;
+
+  let nextDate = _getNextDate(date);
+
+  while (flag) {
+    flag = !checkPalindromeForAllDateFormats(nextDate);
+    if (flag) {
+      counter++;
+      nextDate = _getNextDate(nextDate);
+    }
   }
-  return false;
+  console.log(counter);
+  return { counter, nextDate };
 };
 
 // const getNextDate = (date: string) => {
 //   let counter = 0;
-//   let currentDate = new Date(date);
-//   let nextDate = currentDate.setDate(currentDate.getDate() + 1);
-//   let day = currentDate.getDate() + 1;
-//   let month = currentDate.getMonth();
-//   let year = currentDate.getFullYear();
+//   let userSelectedDate = new Date(date);
+//   let nextDate = userSelectedDate.setDate(userSelectedDate.getDate() + 1);
+//   let day = userSelectedDate.getDate() + 1;
+//   let month = userSelectedDate.getMonth();
+//   let year = userSelectedDate.getFullYear();
 
 //   let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -90,45 +126,14 @@ const checkLeapYear = (year: number) => {
 //   }
 // };
 
-const _getNextDate = (date: string) => {
-  let currentDate = new Date(date);
-  let nextDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-  // let nextDate2 = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
-  let day = currentDate.getDate() + 1;
-  let month = nextDate.getMonth();
-  let year = nextDate.getFullYear();
-
-  let obj = {
-    currentDate,
-    nextDate,
-    // nextDate2,
-    day,
-    month,
-    year,
-  };
-
-  console.table(obj);
-  return `${year}-${month}-${day}`;
-};
-
-const checkNextPalindromeDate = (date: string) => {
-  let counter = 0;
-  let flag = true;
-
-  while (flag) {
-    flag = !checkPalindromeForAllDateFormats(_getNextDate(date));
-    counter++;
-  }
-  console.log(counter);
-  return counter;
-};
-
 const App = () => {
   const [date, setDate] = useState<string | undefined>("");
   const [output, setOutput] = useState<string>("");
+  const [isloading, setIsloading] = useState<boolean>(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    setIsloading(true);
 
     if (date === undefined) {
       return;
@@ -136,10 +141,12 @@ const App = () => {
     console.log(checkPalindromeForAllDateFormats(date));
 
     if (checkPalindromeForAllDateFormats(date)) {
+      setIsloading(false);
       setOutput("Astonishing, you were born on a Palindrome day");
     } else {
-      // checkNextPalindromeDate(date);
-      setOutput("Bad luck");
+      let { counter, nextDate } = checkNextPalindromeDate(date);
+      setIsloading(false);
+      setOutput(`The next palindrome date doesn't occur until ${counter} days. It is ${nextDate}`);
     }
   };
 
@@ -161,7 +168,9 @@ const App = () => {
 
         <Button type="submit">Show</Button>
       </form>
-      <H1>{output}</H1>
+      <Container style={{ padding: "8rem", textAlign: "center" }}>
+        <H1 style={{ fontSize: "3rem" }}>{isloading ? "loading..." : output}</H1>
+      </Container>
 
       <Footer />
     </>
