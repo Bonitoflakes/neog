@@ -46,9 +46,9 @@ const App = () => {
     <>
       <H1>Is your birthday lucky🤔 ?</H1>
 
-      <form>
+      <form style={{ margin: "6rem 0" }}>
         <CenteredDiv variant="column">
-          <label htmlFor="date">Enter your birthdate</label>
+          <Label htmlFor="date">Enter your birthdate</Label>
           <Input
             required
             type="date"
@@ -59,7 +59,7 @@ const App = () => {
         </CenteredDiv>
 
         <CenteredDiv variant="column">
-          <label htmlFor="luckyNumber">Enter your lucky number</label>
+          <Label htmlFor="luckyNumber">Enter your lucky number</Label>
           <Input
             required
             type="number"
@@ -78,16 +78,12 @@ const App = () => {
       <PrivacyNotice display={isVisible}>
         <div>
           <h2 style={{ fontSize: "4rem" }}>Privacy Notice</h2>
-          <p style={{ fontSize: "3rem" }}>
-            We do not store any sort of user data and cookies.
-          </p>
+          <p style={{ fontSize: "2.5rem" }}>We do not store any sort of user data and cookies.</p>
         </div>
-        <PrivacyNoticeButton onClick={() => setIsVisible((prev) => !prev)}>
-          CLOSE
-        </PrivacyNoticeButton>
+        <PrivacyNoticeButton onClick={() => setIsVisible((prev) => !prev)}>CLOSE</PrivacyNoticeButton>
       </PrivacyNotice>
 
-      <Footer/>
+      <Footer />
     </>
   );
 };
