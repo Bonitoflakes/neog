@@ -7,21 +7,40 @@ const App = () => {
   const [pnl, setPnl] = useState<number>(0);
   const [pnlPercentage, setPnlPercentage] = useState<number>(0);
   const [qty, setQty] = useState<number>(0);
-  const [cp, setCp] = useState<number>(0);
-  const [bp, setBp] = useState<number>(0);
+  const [costPrice, setCostPrice] = useState<number>(0);
+  const [currentValue, setCurrentValue] = useState<number>(0);
+  const [output, setOutput] = useState<string>("");
 
   const calculatePnl = (e: any) => {
     e.preventDefault();
-    if (qty > 0 && cp > 0 && bp > 0) {
-      setPnl(qty * cp - qty * bp);
-      setPnlPercentage(((qty * cp - qty * bp) / (qty * bp)) * 100);
+    if (qty > 0 && costPrice > 0 && currentValue > 0) {
+      let profit = (currentValue - costPrice) * qty;
+      let pnlPercentage = ((currentValue - costPrice) * 100) / costPrice;
+      setPnl(profit);
+      setPnlPercentage(pnlPercentage);
+
+      if (Math.sign(profit) === 1) {
+        setOutput(`You have a profit of ${profit} Rs. (${Number(pnlPercentage.toFixed(2))}%)`);
+      } else if (Math.sign(profit) === -1) {
+        setOutput(`You have a loss of ${profit} Rs. (${Number(pnlPercentage.toFixed(2))}%)`);
+      } else {
+        setOutput(`You have no profit or loss`);
+      }
     }
   };
 
   return (
     <>
       <Container>
-        <div style={{ maxWidth: "50%", margin: " 0 auto" }}>
+        <div
+          style={{
+            maxWidth: "80%",
+            margin: " 0 auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <h1
             style={{
               fontSize: "4rem",
@@ -32,7 +51,7 @@ const App = () => {
             Stock profit & loss calculator
           </h1>
 
-          <form onClick={calculatePnl}>
+          <form onClick={calculatePnl} style={{ display: "flex", flexDirection: "column", width: "50%" }}>
             <Label htmlFor="quantity">Quantity</Label>
             <Input
               required
@@ -51,8 +70,8 @@ const App = () => {
               name="buyPrice"
               min={0}
               placeholder="Enter the purchase price"
-              value={bp || ""}
-              onChange={(e) => setBp(Number(e.target.valueAsNumber))}
+              value={costPrice || ""}
+              onChange={(e) => setCostPrice(Number(e.target.valueAsNumber))}
             />
 
             <Label htmlFor="currentPrice">Current Price</Label>
@@ -62,39 +81,23 @@ const App = () => {
               name="currentPrice"
               min={0}
               placeholder="Enter the current price"
-              value={cp || ""}
-              onChange={(e) => setCp(Number(e.target.valueAsNumber))}
+              value={currentValue || ""}
+              onChange={(e) => setCurrentValue(Number(e.target.valueAsNumber))}
             />
-
             <Button type="submit">Calculate</Button>
           </form>
 
-          {pnl === 0 ? (
-            "No profits or losses yet"
-          ) : pnl > 0 ? (
-            <div style={{ marginTop: "2rem" }}>
-              <h2
-                style={{
-                  fontSize: "4rem",
-                  textAlign: "center",
-                  marginBottom: "2rem",
-                }}
-              >
-                Your profit/loss is &nbsp;
-                <span>
-                  {pnl > 0 ? (
-                    <span style={{ color: "green" }}>
-                      ${pnl}, ({pnlPercentage?.toFixed(2)}%)
-                    </span>
-                  ) : (
-                    <span style={{ color: "red" }}>
-                      ${pnl}, {pnlPercentage?.toFixed(2)}%
-                    </span>
-                  )}
-                </span>
-              </h2>
-            </div>
-          ) : null}
+          <div style={{ marginTop: "2rem" }}>
+            {pnl > 0 ? (
+              <span style={{ color: "green", fontSize: "4rem", textAlign: "center", marginBottom: "2rem" }}>
+                {output}
+              </span>
+            ) : (
+              <span style={{ color: "red", fontSize: "4rem", textAlign: "center", marginBottom: "2rem" }}>
+                {output}
+              </span>
+            )}
+          </div>
           <Footer />
         </div>
       </Container>
