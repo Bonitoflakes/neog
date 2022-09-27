@@ -11,6 +11,10 @@ type COOKIECONSENT = {
   display: boolean;
 };
 
+type footerTagProps = {
+  isVisible: boolean;
+};
+
 const checkLuckyBirthday = (date: string, luckyNumber: number) => {
   let sum = 0;
   for (let i = 0; i < date.length; i++) {
@@ -83,7 +87,9 @@ const App = () => {
         <PrivacyNoticeButton onClick={() => setIsVisible((prev) => !prev)}>CLOSE</PrivacyNoticeButton>
       </PrivacyNotice>
 
-      <Footer />
+      <Footertag isVisible={isVisible}>
+        <Footer />
+      </Footertag>
     </>
   );
 };
@@ -121,4 +127,12 @@ const PrivacyNotice = styled.div<COOKIECONSENT>`
 const PrivacyNoticeButton = styled(Button)`
   background: white;
   color: black;
+`;
+
+const Footertag = styled.footer<footerTagProps>`
+  display: ${(props) => (props.isVisible ? "none" : "flex")};
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
 `;

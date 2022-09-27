@@ -2,21 +2,7 @@ import React from "react";
 import { AiFillLinkedin, AiFillGithub, AiFillInstagram } from "react-icons/ai";
 const footer = () => {
   return (
-    <footer
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: "5rem",
-        position: "absolute",
-        bottom: "10px",
-        width: "100%",
-        height: "2.5rem",
-        right: 0,
-        left: 0,
-        zIndex: -100,
-      }}
-    >
+    <>
       <h2 style={{ fontSize: "4rem" }}>Let`s connect.</h2>
       <div>
         <a href="https://www.instagram.com/_memphisto/">
@@ -29,7 +15,7 @@ const footer = () => {
           <AiFillLinkedin size={32} />
         </a>
       </div>
-    </footer>
+    </>
   );
 };
 
