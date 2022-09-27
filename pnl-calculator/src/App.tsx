@@ -26,6 +26,8 @@ const App = () => {
       } else {
         setOutput(`You have no profit or loss`);
       }
+    } else {
+      setOutput("One or more values is zero");
     }
   };
 
