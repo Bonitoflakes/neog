@@ -14,6 +14,7 @@ const footer = () => {
         height: "2.5rem",
         right: 0,
         left: 0,
+        zIndex: -100,
       }}
     >
       <h2 style={{ fontSize: "4rem" }}>Let`s connect.</h2>
