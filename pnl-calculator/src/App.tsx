@@ -53,7 +53,7 @@ const App = () => {
             Stock profit & loss calculator
           </h1>
 
-          <form onClick={calculatePnl} style={{ display: "flex", flexDirection: "column", width: "50%" }}>
+          <form onSubmit={calculatePnl} style={{ display: "flex", flexDirection: "column", width: "50%" }}>
             <Label htmlFor="quantity">Quantity</Label>
             <Input
               required
